@@ -85,4 +85,22 @@ describe('belajar nodejs redis', () => {
         await redis.del("names")
     });
 
+    it('should support hash', async () => {
+        await redis.hset("user:1", {
+            "id": "1",
+            "name": "Eko",
+            "email": "eko@example.com"
+        })
+
+        const user = await redis.hgetall("user:1")
+
+        expect(user).toEqual({
+            "id": "1",
+            "name": "Eko",
+            "email": "eko@example.com"
+        })
+
+        await redis.del("user:1")
+    });
+
 });
