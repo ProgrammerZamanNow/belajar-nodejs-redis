@@ -52,4 +52,20 @@ describe('belajar nodejs redis', () => {
         await redis.del("names")
     });
 
+    it('should support set', async () => {
+        await redis.sadd("names", "Eko")
+        await redis.sadd("names", "Eko")
+        await redis.sadd("names", "Kurniawan")
+        await redis.sadd("names", "Kurniawan")
+        await redis.sadd("names", "Khannedy")
+        await redis.sadd("names", "Khannedy")
+
+        expect(await redis.scard("names")).toBe(3)
+
+        const names = await redis.smembers("names")
+        expect(names).toEqual(["Eko", "Kurniawan", "Khannedy"])
+
+        await redis.del("names")
+    });
+
 });
