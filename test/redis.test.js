@@ -123,4 +123,16 @@ describe('belajar nodejs redis', () => {
         expect(total).toBe(6)
     });
 
+    it('should support pipeline', async () => {
+        const pipeline = redis.pipeline()
+
+        pipeline.setex("name", 2, "Eko")
+        pipeline.setex("address", 2, "Indonesia")
+
+        await pipeline.exec()
+
+        expect(await redis.get("name")).toBe("Eko")
+        expect(await redis.get("address")).toBe("Indonesia")
+    });
+
 });
