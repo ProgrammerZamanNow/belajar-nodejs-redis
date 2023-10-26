@@ -114,4 +114,13 @@ describe('belajar nodejs redis', () => {
         expect(result).toEqual(["Toko A", "Toko B"])
     });
 
+    it('should support hyper log log', async () => {
+        await redis.pfadd("visitors", "eko", "kurniawan", "khannedy")
+        await redis.pfadd("visitors", "eko", "budi", "joko")
+        await redis.pfadd("visitors", "rully", "budi", "joko")
+
+        const total = await redis.pfcount("visitors")
+        expect(total).toBe(6)
+    });
+
 });
